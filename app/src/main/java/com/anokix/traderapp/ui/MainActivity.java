@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,6 +25,7 @@ import com.anokix.traderapp.R;
 import com.anokix.traderapp.data.MockData;
 import com.anokix.traderapp.messaging.PushManager;
 import com.anokix.traderapp.model.MenuItem;
+import com.anokix.traderapp.pos.WiseCashier;
 import com.anokix.traderapp.session.SessionManager;
 import com.anokix.traderapp.ui.adapter.DrawerMenuAdapter;
 import com.anokix.traderapp.ui.fragment.DashboardFragment;
@@ -74,6 +76,20 @@ public class MainActivity extends AppCompatActivity {
         requestNotificationPermission();
         PushManager.syncToken(this);
         applyPushRouting(getIntent());
+
+        /*if (WiseCashier.isInstalled(this)) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Device Check")
+                    .setMessage("This is a POS Terminal Device.")
+                    .setPositiveButton("OK", null)
+                    .show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Device Check")
+                    .setMessage("This is not POS Terminal Device or payment app was not installed!")
+                    .setPositiveButton("OK", null)
+                    .show();
+        }*/
     }
 
     @Override
