@@ -89,13 +89,13 @@ import java.util.concurrent.Executors;
  */
 public final class ApiClient {
 
-    public static final String BASE_URL = "http://109.176.30.129/ax/";
+    public static final String BASE_URL = "https://api.anokix.com/";  //"http://109.176.30.129/ax/";
 
     /**
      * Report files are served by a separate download service on its own port, and it
      * authenticates with the token in the request body rather than a Bearer header.
      */
-    public static final String REPORT_DOWNLOAD_URL = "http://109.176.30.129:5720/api/report-download";
+    public static final String REPORT_DOWNLOAD_URL = "https://api.anokix.com:5720/api/report-download";;//"http://109.176.30.129:5720/api/report-download";
 
     private static ApiClient instance;
 
