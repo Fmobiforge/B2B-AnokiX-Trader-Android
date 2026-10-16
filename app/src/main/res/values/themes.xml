@@ -162,8 +162,9 @@
         <item name="colorPrimaryVariant">@color/purple_dark</item>
         <item name="colorOnPrimary">@android:color/white</item>
         <item name="colorSecondary">@color/purple_primary</item>
-        <item name="android:statusBarColor">@color/purple_dark</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <!-- Portal-style white top bar: white status bar with dark icons. -->
+        <item name="android:statusBarColor">@color/surface</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="android:fontFamily">@font/inter</item>
         <item name="fontFamily">@font/inter</item>
@@ -225,19 +226,35 @@
         <item name="cornerSize">@dimen/radius_md</item>
     </style>
 
+    <!-- Portal page header: white bar, hairline bottom border, navy title + icons. -->
     <style name="Widget.AnokiX.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="android:background">@drawable/bg_header_purple</item>
-        <item name="titleTextColor">@android:color/white</item>
-        <item name="subtitleTextColor">@color/purple_text_light</item>
+        <item name="android:background">@drawable/bg_header_divider</item>
+        <item name="titleTextColor">@color/text_primary</item>
+        <item name="subtitleTextColor">@color/text_secondary</item>
+        <item name="titleTextAppearance">@style/TextAppearance.AnokiX.ToolbarTitle</item>
+        <item name="navigationIconTint">@color/text_primary</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:theme">@style/ThemeOverlay.AnokiX.Toolbar</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="ThemeOverlay.AnokiX.Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/text_primary</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
+
+    <style name="TextAppearance.AnokiX.ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">-0.01</item>
     </style>
 
     <style name="Widget.AnokiX.Button.Primary" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@android:color/white</item>
         <item name="backgroundTint">@color/purple_primary</item>
-        <item name="cornerRadius">10dp</item>
+        <item name="cornerRadius">8dp</item>
     </style>
 
     <style name="Widget.AnokiX.Button.Outlined.Success" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -301,7 +318,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">14sp</item>
         <item name="backgroundTint">@color/purple_primary</item>
-        <item name="cornerRadius">10dp</item>
+        <item name="cornerRadius">8dp</item>
     </style>
 
     <!-- Business-profile step scaffolding -->

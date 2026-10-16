@@ -50,12 +50,12 @@ public class DonutChartView extends View {
         segmentPaint.setStrokeWidth(dp(strokeWidthDp));
         segmentPaint.setStrokeCap(Paint.Cap.BUTT);
 
-        centerMainPaint.setColor(Color.parseColor("#0F172A"));
+        centerMainPaint.setColor(Color.parseColor("#1A237E"));
         centerMainPaint.setTextAlign(Paint.Align.CENTER);
         centerMainPaint.setFakeBoldText(true);
         centerMainPaint.setTextSize(dp(13));
 
-        centerSubPaint.setColor(Color.parseColor("#64748B"));
+        centerSubPaint.setColor(Color.parseColor("#5C6B7A"));
         centerSubPaint.setTextAlign(Paint.Align.CENTER);
         centerSubPaint.setTextSize(dp(9));
     }

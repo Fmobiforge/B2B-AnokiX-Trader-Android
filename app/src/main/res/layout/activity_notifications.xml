@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:title="@string/notifications"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/text_primary" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

@@ -102,7 +102,7 @@
         <activity
             android:name=".ui.RegisterTraderActivity"
             android:exported="false"
-            android:theme="@style/Theme.AnokiXDistributor.Login"
+            android:theme="@style/Theme.AnokiXDistributor"
             android:windowSoftInputMode="adjustResize" />
 
         <activity

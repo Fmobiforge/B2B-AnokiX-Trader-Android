@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:title="Inventory"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/text_primary" />
 
     <FrameLayout
         android:layout_width="match_parent"

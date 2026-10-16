@@ -150,7 +150,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:contentPadding="0dp"
                     app:strokeColor="@color/border"
@@ -173,7 +173,7 @@
                                 android:layout_height="16dp"
                                 android:contentDescription="@null"
                                 android:src="@drawable/ic_reports"
-                                app:tint="@color/purple_primary" />
+                                app:tint="@color/brand_blue" />
 
                             <com.anokix.traderapp.ui.views.RobotoBoldTextView
                                 android:layout_width="wrap_content"
@@ -233,7 +233,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:contentPadding="0dp"
                     app:strokeColor="@color/border"
@@ -306,7 +306,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="14dp"
                 app:cardElevation="0dp"
                 app:contentPadding="0dp"
                 app:strokeColor="@color/border"
@@ -372,7 +372,7 @@
                                 android:contentDescription="@string/wallet_refresh"
                                 android:padding="6dp"
                                 android:src="@drawable/ic_refresh"
-                                app:tint="@color/purple_primary" />
+                                app:tint="@color/brand_blue" />
 
                             <ProgressBar
                                 android:id="@+id/walletRefreshProgress"
@@ -447,7 +447,7 @@
                             android:gravity="center"
                             android:paddingVertical="10dp"
                             android:text="@string/dash_send_money"
-                            android:textColor="@color/purple_primary"
+                            android:textColor="@color/brand_blue"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -457,7 +457,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:text="@string/view_transactions"
-                        android:textColor="@color/purple_primary"
+                        android:textColor="@color/brand_blue"
                         android:textSize="12sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -468,7 +468,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="14dp"
                 app:cardElevation="0dp"
                 app:contentPadding="0dp"
                 app:strokeColor="@color/border"
@@ -595,7 +595,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="14dp"
                 app:cardElevation="0dp"
                 app:contentPadding="0dp"
                 app:strokeColor="@color/border"
@@ -677,7 +677,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="14dp"
                 app:cardElevation="0dp"
                 app:contentPadding="0dp"
                 app:strokeColor="@color/border"
@@ -739,7 +739,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="14dp"
                 app:cardElevation="0dp"
                 app:contentPadding="0dp"
                 app:strokeColor="@color/border"

@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:title="Distributors"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/text_primary" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"

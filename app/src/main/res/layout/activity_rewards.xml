@@ -19,7 +19,7 @@
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:title="@string/anokix_rewards"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/text_primary" />
 
     <!--
       The strapline sits under the bar rather than inside it as a toolbar subtitle. In

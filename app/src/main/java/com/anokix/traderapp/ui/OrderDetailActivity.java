@@ -200,7 +200,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             label.setText(STAGE_LABELS[i]);
             label.setTextSize(14);
             boolean reached = done || current;
-            label.setTextColor(reached ? Color.parseColor("#0F172A") : Color.parseColor("#94A3B8"));
+            label.setTextColor(reached ? Color.parseColor("#1A237E") : Color.parseColor("#94A3B8"));
             if (current) {
                 label.setTypeface(label.getTypeface(), android.graphics.Typeface.BOLD);
             }
@@ -211,7 +211,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 TextView date = new TextView(this);
                 date.setText(sub);
                 date.setTextSize(12);
-                date.setTextColor(Color.parseColor("#64748B"));
+                date.setTextColor(Color.parseColor("#5C6B7A"));
                 date.setPadding(0, density, 0, 0);
                 right.addView(date);
             }

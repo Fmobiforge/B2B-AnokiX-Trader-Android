@@ -203,7 +203,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_login_button_primary"
+                    android:background="@drawable/bg_welcome_login_gradient"
                     android:gravity="center"
                     android:text="@string/login_button"
                     android:textColor="#FFFFFF"

@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/bg_header_purple"
+        android:background="@drawable/bg_header_divider"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="8dp">
@@ -22,7 +22,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/back"
             android:src="?attr/homeAsUpIndicator"
-            app:tint="#FFFFFF" />
+            app:tint="@color/text_primary" />
 
         <com.anokix.traderapp.ui.views.RobotoBoldTextView
             android:layout_width="0dp"
@@ -30,7 +30,7 @@
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:text="@string/marketplace"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_primary"
             android:textSize="18sp" />
 
         <FrameLayout
@@ -45,7 +45,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/cart"
                 android:src="@drawable/ic_cart"
-                app:tint="#FFFFFF" />
+                app:tint="@color/text_primary" />
 
             <com.anokix.traderapp.ui.views.RobotoBoldTextView
                 android:id="@+id/cartBadge"

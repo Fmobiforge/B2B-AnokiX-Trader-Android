@@ -14,7 +14,7 @@
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:subtitle="Stock History"
         app:title="Product"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/text_primary" />
 
     <FrameLayout
         android:layout_width="match_parent"

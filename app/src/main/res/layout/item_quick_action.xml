@@ -12,7 +12,7 @@
         android:id="@+id/quickIconContainer"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@drawable/bg_kpi_icon_purple">
+        android:background="@drawable/bg_quick_action_tile">
 
         <ImageView
             android:id="@+id/quickIcon"
@@ -21,17 +21,17 @@
             android:layout_gravity="center"
             android:contentDescription="@null"
             android:src="@drawable/ic_shopping_bag"
-            app:tint="@color/purple_primary" />
+            app:tint="@color/brand_blue" />
     </FrameLayout>
 
     <com.anokix.traderapp.ui.views.RobotoTextView
         android:id="@+id/quickLabel"
-        android:layout_width="72dp"
+        android:layout_width="76dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:maxLines="2"
         android:text="@string/sell_pos"
         android:textColor="@color/text_primary"
-        android:textSize="11sp" />
+        android:textSize="12sp" />
 </LinearLayout>

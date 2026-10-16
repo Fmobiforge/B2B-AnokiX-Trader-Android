@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
+        Palette aligned with the Trader Portal (trader.anokix.com):
+        navy ink (#1A237E) for titles + body text, #5C6B7A secondary text, #F5F7FA canvas,
+        #DCE1E8 card borders, violet (#7C3AED) for primary actions, portal blue (#0D47A1)
+        for links / icon tiles, and the #00091F sidebar navy for the drawer + auth screens.
+    -->
     <color name="purple_primary">#7C3AED</color>
     <color name="purple_dark">#5B21B6</color>
     <color name="purple_light">#EDE9FE</color>
     <color name="purple_text_light">#C4B5FD</color>
-    <color name="background">#F1F5F9</color>
+    <color name="background">#F5F7FA</color>
     <color name="surface">#FFFFFF</color>
     <color name="surface_variant">#F8FAFC</color>
     <color name="surface_elevated">#FFFFFF</color>
-    <color name="text_primary">#0F172A</color>
-    <color name="text_secondary">#64748B</color>
+    <color name="text_primary">#1A237E</color>
+    <color name="text_secondary">#5C6B7A</color>
     <color name="text_tertiary">#94A3B8</color>
-    <color name="border">#E2E8F0</color>
-    <color name="border_light">#F1F5F9</color>
+    <color name="border">#DCE1E8</color>
+    <color name="border_light">#EEF1F5</color>
     <color name="border_gray">#a0a0a0</color>
-    <color name="divider">#E2E8F0</color>
+    <color name="divider">#E8ECF1</color>
     <color name="success">#16A34A</color>
     <color name="success_bg">#DCFCE7</color>
     <color name="success_panel">#F0FDF4</color>
@@ -25,11 +31,11 @@
     <color name="danger_bg">#FEE2E2</color>
     <color name="info">#2563EB</color>
     <color name="info_bg">#DBEAFE</color>
-    <color name="login_bg">#000920</color>
-    <color name="drawer_bg">#000920</color>
+    <color name="login_bg">#00091F</color>
+    <color name="drawer_bg">#00091F</color>
     <color name="drawer_item_selected">#7B61FF</color>
     <color name="drawer_text">#FFFFFF</color>
-    <color name="drawer_text_muted">#B4C3D8</color>
+    <color name="drawer_text_muted">#B8FFFFFF</color>
     <color name="drawer_badge_bg">#161d4e</color>
     <color name="drawer_badge_fg">#3e3389</color>
     <color name="drawer_badge_text">#C4B5FD</color>
@@ -41,5 +47,15 @@
     <color name="top_title">#1a237e</color>
 
     <color name="orange">#ff8d00</color>
+
+    <!-- Portal accents -->
+    <color name="brand_blue">#0D47A1</color>
+    <color name="brand_blue_bg">#E3EAF5</color>
+    <color name="brand_sky">#29B6F6</color>
+    <color name="brand_indigo">#6366F1</color>
+    <color name="brand_violet">#8B5CF6</color>
+    <color name="success_strong">#2E7D32</color>
+    <color name="warning_strong">#FF6F00</color>
+    <color name="drawer_divider">#1F2A4A</color>
 
 </resources>

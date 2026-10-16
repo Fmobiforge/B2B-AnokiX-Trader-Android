@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Portal sidebar active item: indigo → violet (rgba(99,102,241,.9) → rgba(139,92,246,.85)). -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/drawer_item_selected" />
+    <gradient
+        android:angle="0"
+        android:endColor="#D98B5CF6"
+        android:startColor="#E66366F1"
+        android:type="linear" />
     <corners android:radius="@dimen/radius_md" />
 </shape>

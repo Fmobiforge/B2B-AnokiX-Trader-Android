@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portal Quick Actions tile: 12% portal-blue wash, 12dp corners. Solid fill so callers
+     (e.g. Rewards quick-redeem) can still re-tint it with setBackgroundTintList. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/brand_blue_bg" />
+    <corners android:radius="12dp" />
+</shape>

@@ -26,7 +26,8 @@ public class RobotoLightTextView extends androidx.appcompat.widget.AppCompatText
             //Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/lato-light.ttf");
             //setTypeface(tf);
 
-            setTypeface(TypefaceCache.get(getContext(), "font/inter_light.ttf"));
+            // Portal type scale has no 300 weight — captions/subtitles are Inter Regular.
+            setTypeface(TypefaceCache.get(getContext(), "font/inter_regular.ttf"));
         }
     }
 }

@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginHorizontal="@dimen/drawer_padding_horizontal"
-        android:background="#1F2A4A" />
+        android:background="@color/drawer_divider" />
 
     <LinearLayout
         android:id="@+id/panelUserInfo"
