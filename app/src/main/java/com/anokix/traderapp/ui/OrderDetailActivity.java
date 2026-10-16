@@ -311,7 +311,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             ((TextView) row.findViewById(R.id.itemLineTotal))
                     .setText(OrderFormat.money(item.line_total, currency));
             if (item.product != null && item.product.image_url != null
-                    && !item.product.image_url.isEmpty()) {
+                    && !item.product.image_url.isEmpty() && GlideGuard.canLoad(image)) {
                 Glide.with(image).load(item.product.image_url).centerCrop().into(image);
             }
             container.addView(row);

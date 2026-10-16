@@ -26,6 +26,7 @@ import com.anokix.traderapp.network.ApiCallback;
 import com.anokix.traderapp.network.ApiClient;
 import com.anokix.traderapp.network.dto.PosProductsData;
 import com.anokix.traderapp.ui.CheckoutActivity;
+import com.anokix.traderapp.ui.GlideGuard;
 import com.anokix.traderapp.ui.MainActivity;
 import com.anokix.traderapp.ui.NotificationsActivity;
 import com.anokix.traderapp.ui.SalesActivity;
@@ -283,7 +284,7 @@ public class SellFragment extends Fragment implements PosScanDialogFragment.Host
                     sellable ? R.color.success : R.color.danger));
 
             if (item.imageUrl != null && !item.imageUrl.isEmpty()) {
-                Glide.with(h.image.getContext()).load(item.imageUrl).centerCrop().into(h.image);
+                if (GlideGuard.canLoad(h.image)) Glide.with(h.image.getContext()).load(item.imageUrl).centerCrop().into(h.image);
             } else {
                 h.image.setImageDrawable(null);
             }

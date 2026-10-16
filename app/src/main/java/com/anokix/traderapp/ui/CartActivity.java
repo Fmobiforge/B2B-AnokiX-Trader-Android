@@ -108,6 +108,7 @@ public class CartActivity extends AppCompatActivity {
         api.getCart(new ApiCallback<CartData>() {
             @Override
             public void onSuccess(CartData result) {
+                if (isFinishing() || isDestroyed()) return;
                 if (result != null) {
                     cart.hydrate(result);
                     currency = result.currencySymbol();
@@ -117,6 +118,7 @@ public class CartActivity extends AppCompatActivity {
 
             @Override
             public void onError(String message) {
+                if (isFinishing() || isDestroyed()) return;
                 render();
             }
         });
@@ -158,7 +160,7 @@ public class CartActivity extends AppCompatActivity {
         unit.setText(money(line.unitPrice));
         qty.setText(String.valueOf(line.quantity));
         lineTotal.setText(money(line.lineTotal()));
-        if (line.product != null && line.product.imageUrl() != null) {
+        if (line.product != null && line.product.imageUrl() != null && GlideGuard.canLoad(image)) {
             Glide.with(image).load(line.product.imageUrl()).centerCrop().into(image);
         }
 

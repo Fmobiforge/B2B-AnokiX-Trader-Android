@@ -387,7 +387,7 @@ public class MarketplaceActivity extends AppCompatActivity {
                 h.video.setVisibility(View.GONE);
                 h.image.setVisibility(View.VISIBLE);
                 int placeholder = R.drawable.bg_banner_placeholder;
-                if (url != null) {
+                if (url != null && GlideGuard.canLoad(h.image)) {
                     Glide.with(h.image)
                             .load(url)
                             .placeholder(placeholder)
@@ -632,7 +632,7 @@ public class MarketplaceActivity extends AppCompatActivity {
                     new android.widget.FrameLayout.LayoutParams(dp(22), dp(22), Gravity.CENTER);
             icon.setLayoutParams(iconLp);
             String logoUrl = MediaUrls.resolve(c.logo_url);
-            if (logoUrl != null) {
+            if (logoUrl != null && GlideGuard.canLoad(icon)) {
                 Glide.with(icon)
                         .load(logoUrl)
                         .centerCrop()
@@ -693,7 +693,7 @@ public class MarketplaceActivity extends AppCompatActivity {
             ((TextView) card.findViewById(R.id.productName)).setText(p.name != null ? p.name : "");
             ((TextView) card.findViewById(R.id.productPrice)).setText(p.formattedPrice(currency));
             String url = p.imageUrl();
-            if (url != null) {
+            if (url != null && GlideGuard.canLoad(img)) {
                 Glide.with(img).load(url).centerCrop().into(img);
             }
             card.setOnClickListener(v -> openProductDetail(p));

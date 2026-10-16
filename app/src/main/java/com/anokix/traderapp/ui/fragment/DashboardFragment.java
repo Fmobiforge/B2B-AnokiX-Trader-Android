@@ -25,6 +25,7 @@ import com.anokix.traderapp.network.dto.TraderDashboardData;
 import com.anokix.traderapp.session.SessionManager;
 import com.anokix.traderapp.ui.CartActivity;
 import com.anokix.traderapp.ui.CartBadge;
+import com.anokix.traderapp.ui.GlideGuard;
 import com.anokix.traderapp.ui.MainActivity;
 import com.anokix.traderapp.ui.MarketplaceActivity;
 import com.anokix.traderapp.ui.NotificationBadge;
@@ -497,7 +498,9 @@ public class DashboardFragment extends Fragment {
                 h.image.setVisibility(View.GONE);
             } else {
                 h.image.setVisibility(View.VISIBLE);
-                Glide.with(h.image).load(banner).centerCrop().into(h.image);
+                if (GlideGuard.canLoad(h.image)) {
+                    Glide.with(h.image).load(banner).centerCrop().into(h.image);
+                }
             }
 
             h.cta.setOnClickListener(v -> openMarketplace());

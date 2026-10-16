@@ -94,9 +94,9 @@ public final class MockData {
             // Hidden for now — anokiX wallet and anokiX rewards are not part of the
             // current release. Keep these entries so the menu can be restored later.
             // (The wallet screen itself is still in the build — WalletActivity.)
-            new MenuItem("wallet", "anokiX wallet", "Powered by IMB", R.drawable.ic_wallet),
-            new MenuItem("rewards", "anokiX rewards", "Powered by Limes", R.drawable.ic_promo_gift),
-            new MenuItem("airtime", "Airtime & VAS", "Powered by Limes", R.drawable.ic_vas),
+            new MenuItem("wallet", "anokiX wallet", /*"Powered by IMB", */R.drawable.ic_wallet),
+            new MenuItem("rewards", "anokiX rewards", /*"Powered by Limes", */R.drawable.ic_promo_gift),
+            new MenuItem("airtime", "Airtime & VAS", /*"Powered by Limes", */R.drawable.ic_vas),
             new MenuItem("analytics", "Analytics", R.drawable.ic_reports),
             new MenuItem("reports", "Reports", R.drawable.ic_finance_report),
             new MenuItem("staff", "Staff", "Who can use this till", R.drawable.ic_staff),

@@ -206,7 +206,7 @@ public class CollectionActivity extends AppCompatActivity {
             h.price.setText(p.formattedPrice(currency));
             String url = p.imageUrl();
             if (url != null) {
-                Glide.with(h.image).load(url).centerCrop().into(h.image);
+                if (GlideGuard.canLoad(h.image)) Glide.with(h.image).load(url).centerCrop().into(h.image);
             } else {
                 h.image.setImageDrawable(null);
             }

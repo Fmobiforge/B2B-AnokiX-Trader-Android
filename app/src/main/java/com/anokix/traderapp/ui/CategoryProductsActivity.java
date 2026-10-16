@@ -202,7 +202,7 @@ public class CategoryProductsActivity extends AppCompatActivity {
             ((TextView) card.findViewById(R.id.productName)).setText(p.name != null ? p.name : "");
             ((TextView) card.findViewById(R.id.productPrice)).setText(p.formattedPrice(currency));
             String url = p.imageUrl();
-            if (url != null) Glide.with(img).load(url).centerCrop().into(img);
+            if (url != null && GlideGuard.canLoad(img)) Glide.with(img).load(url).centerCrop().into(img);
             card.setOnClickListener(v -> openProductDetail(p));
             card.findViewById(R.id.productAdd).setOnClickListener(v -> openProductDetail(p));
             recentRow.addView(card);
@@ -687,7 +687,7 @@ public class CategoryProductsActivity extends AppCompatActivity {
                 h.video.setVisibility(View.GONE);
                 h.image.setVisibility(View.VISIBLE);
                 int placeholder = R.drawable.bg_banner_placeholder;
-                if (url != null) {
+                if (url != null && GlideGuard.canLoad(h.image)) {
                     Glide.with(h.image)
                             .load(url)
                             .placeholder(placeholder)
@@ -750,7 +750,7 @@ public class CategoryProductsActivity extends AppCompatActivity {
             h.price.setText(p.formattedPrice(currency));
             String url = p.imageUrl();
             if (url != null) {
-                Glide.with(h.image).load(url).centerCrop().into(h.image);
+                if (GlideGuard.canLoad(h.image)) Glide.with(h.image).load(url).centerCrop().into(h.image);
             } else {
                 h.image.setImageDrawable(null);
             }
