@@ -152,13 +152,25 @@ public final class PushManager {
     public static void syncToken(Context context) {
         final Context app = context.getApplicationContext();
         if (!SessionManager.get(app).isLoggedIn()) return;
+
+        Log.w(TAG, "Start to fetch FCM token...");
+
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
+
+                    Log.w(TAG, "FCM getToken task completed");
+
                     if (!task.isSuccessful() || task.getResult() == null) {
                         Log.w(TAG, "Fetching FCM token failed", task.getException());
                         return;
                     }
+                    Log.w(TAG, "FCM Token is " + task.getResult());
+
                     registerToken(app, task.getResult());
+                }).addOnFailureListener(e -> {
+                    Log.e(TAG, "FCM token retrieval failed", e);
+                }).addOnCanceledListener(() -> {
+                    Log.e(TAG, "FCM token fetch canceled!");
                 });
     }
 

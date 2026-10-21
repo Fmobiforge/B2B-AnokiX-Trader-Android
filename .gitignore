@@ -1,6 +1,6 @@
 # ─── Secrets — never commit ──────────────────────────────────────────────
 # Firebase config — generate your own from your Firebase project.
-google-services.json
+#google-services.json
 
 # Signing keystores and their passwords.
 *.jks
