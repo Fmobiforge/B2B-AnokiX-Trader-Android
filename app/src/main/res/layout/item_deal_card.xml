@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Best Deals / Exclusive Deals product card: optional "Only from …" tag, price and a
+     green stock pill (portal deal tiles). -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="136dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/border"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:background="@color/surface_variant">
+
+            <ImageView
+                android:id="@+id/dealImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop" />
+
+            <com.anokix.traderapp.ui.views.RobotoBoldTextView
+                android:id="@+id/dealTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:background="@drawable/bg_deal_tag"
+                android:ellipsize="end"
+                android:maxWidth="124dp"
+                android:maxLines="1"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textColor="#FFFFFF"
+                android:textSize="9sp"
+                android:visibility="gone"
+                tools:text="Only from ApplePay"
+                tools:visibility="visible" />
+        </FrameLayout>
+
+        <com.anokix.traderapp.ui.views.RobotoBoldTextView
+            android:id="@+id/dealName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:minLines="2"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp"
+            tools:text="Classic White Bread 700g" />
+
+        <com.anokix.traderapp.ui.views.RobotoBoldTextView
+            android:id="@+id/dealPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            tools:text="R100.00" />
+
+        <com.anokix.traderapp.ui.views.RobotoTextView
+            android:id="@+id/dealStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_stock_pill"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="3dp"
+            android:textColor="@color/success_strong"
+            android:textSize="10sp"
+            tools:text="In stock · 1 500" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1654,5 +1654,51 @@
     <string name="rewards_copy_invite">Copy Invite Code</string>
     <string name="rewards_share_invite">Share</string>
     <string name="rewards_invite_copied">Invite code copied</string>
+
+    <!-- Marketplace (Trader Portal parity) -->
+    <string name="market_change">Change</string>
+    <string name="market_service_airtime">Airtime &amp; Data</string>
+    <string name="market_service_airtime_sub">Top up now</string>
+    <string name="market_service_electricity">Electricity</string>
+    <string name="market_service_electricity_sub">Buy prepaid</string>
+    <string name="market_service_pos">POS &amp; Devices</string>
+    <string name="market_service_pos_sub">Manage devices</string>
+    <string name="market_best_deals">Best Deals</string>
+    <string name="market_exclusive_deals">Exclusive Deals</string>
+    <string name="market_only_from">Only from %1$s</string>
+    <string name="market_in_stock_count">In stock · %1$s</string>
+    <string name="market_out_of_stock">Out of stock</string>
+    <string name="market_promotions">Promotions</string>
+    <string name="market_news_from">News from %1$s</string>
+    <string name="market_news">News</string>
+    <string name="market_stories">Stories</string>
+    <string name="market_top_suppliers">Top Suppliers</string>
+    <string name="market_best_sellers">Best Sellers</string>
+    <string name="market_products_count">%1$d products</string>
+    <string name="market_yours">YOURS</string>
+    <string name="market_my_distributors">My Distributors</string>
+    <string name="market_products_available">Products Available</string>
+    <string name="market_coverage_area">Coverage Area</string>
+    <string name="market_view_distributor">View Distributor</string>
+    <string name="market_recent_orders">Recent Orders</string>
+    <string name="market_search_clear">Clear</string>
+    <string name="market_searching">Searching…</string>
+    <string name="market_search_empty">No products match “%1$s”.</string>
+    <string name="market_scan_find">Find</string>
+    <string name="market_scan_not_found">No product matches “%1$s”.</string>
+    <string name="market_view_details">View Details</string>
+    <string name="market_shop_now">Shop Now</string>
+    <string name="market_campaign_runs">Runs</string>
+    <string name="market_campaign_products">Products in this promotion</string>
+    <string name="market_campaign_announcement">This promotion is an announcement — it does not put specific products on offer.</string>
+    <string name="market_combo_deal">Combo deal</string>
+    <string name="market_buy_item">Buy</string>
+    <string name="market_free_item">Free</string>
+    <string name="market_stock_left">%1$s in stock</string>
+    <string name="market_story_close">Close story</string>
+    <plurals name="market_search_results">
+        <item quantity="one">1 result for “%2$s”</item>
+        <item quantity="other">%1$d results for “%2$s”</item>
+    </plurals>
     <string name="rewards_invite_share_text">Join me on anokiX and use my invite code %1$s — we both earn Limes points.</string>
 </resources>

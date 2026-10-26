@@ -226,6 +226,12 @@
         <item name="cornerSize">@dimen/radius_md</item>
     </style>
 
+    <!-- Fully round image (marketplace story thumbnails). -->
+    <style name="ShapeAppearance.AnokiX.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <!-- Portal page header: white bar, hairline bottom border, navy title + icons. -->
     <style name="Widget.AnokiX.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:background">@drawable/bg_header_divider</item>

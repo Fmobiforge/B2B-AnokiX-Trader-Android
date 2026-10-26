@@ -33,8 +33,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:orientation="vertical"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:padding="16dp">
+
+            <com.anokix.traderapp.ui.views.RobotoBoldTextView
+                android:id="@+id/bannerTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_campaign_tag"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="#FFFFFF"
+                android:textSize="9sp"
+                android:visibility="gone" />
 
             <com.anokix.traderapp.ui.views.RobotoBoldTextView
                 android:id="@+id/bannerTitle"
@@ -68,9 +80,10 @@
                     android:insetBottom="0dp"
                     android:paddingHorizontal="16dp"
                     android:text="@string/shop_products"
-                    android:textColor="@color/purple_primary"
-                    android:textSize="10sp"
-                    app:cornerRadius="10dp" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/brand_indigo"
+                    android:textSize="12sp"
+                    app:cornerRadius="19dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/bannerPromos"

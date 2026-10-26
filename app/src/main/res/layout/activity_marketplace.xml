@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Trader Marketplace — Trader Portal (/marketplace) parity, laid out as one mobile column:
+  distributor card → quick services → campaign banners → search/scan (+ inline results) →
+  categories → recommended → best deals → exclusive deals → promotions → news → stories →
+  top suppliers → best sellers → my distributors → recent orders → feature strip.
+  Every API-driven section starts hidden and is shown by MarketplaceActivity when it has data.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -63,186 +71,194 @@
         </FrameLayout>
     </LinearLayout>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/marketplaceRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/marketplaceScroll"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="16dp">
+        android:paddingBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Distributor + top stats -->
-            <androidx.cardview.widget.CardView
+            <!-- Preferred distributor + delivery area (tap the card for details) -->
+            <LinearLayout
+                android:id="@+id/distributorCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="0dp">
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_card_white"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="14dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_summary_card"
-                    android:orientation="vertical"
-                    android:padding="12dp">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp">
+
+                        <com.anokix.traderapp.ui.views.RobotoBoldTextView
+                            android:id="@+id/distAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_dist_avatar"
+                            android:gravity="center"
+                            android:textColor="@color/purple_primary"
+                            android:textSize="18sp"
+                            tools:text="A" />
+
+                        <ImageView
+                            android:id="@+id/distAvatarImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:importantForAccessibility="no"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone" />
+                    </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                        <FrameLayout
-                            android:layout_width="44dp"
-                            android:layout_height="44dp">
-
-                            <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                                android:id="@+id/distAvatar"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/bg_dist_avatar"
-                                android:gravity="center"
-                                android:text="G"
-                                android:textColor="@color/purple_primary"
-                                android:textSize="18sp" />
-
-                            <ImageView
-                                android:id="@+id/distAvatarImage"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:visibility="gone" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <com.anokix.traderapp.ui.views.RobotoTextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:text="@string/preferred_distributor"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
 
-                            <com.anokix.traderapp.ui.views.RobotoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/preferred_distributor"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="11sp" />
-
-                            <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                                android:id="@+id/distName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Global Food Suppliers Ltd"
-                                android:textColor="@color/text_primary"
-                                android:textSize="14sp" />
-
-                            <com.anokix.traderapp.ui.views.RobotoTextView
-                                android:id="@+id/btnChangeDistributor"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="@string/change_distributor"
-                                android:textColor="@color/purple_primary"
-                                android:textSize="12sp" />
-                        </LinearLayout>
+                        <com.anokix.traderapp.ui.views.RobotoBoldTextView
+                            android:id="@+id/distName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="—"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="12dp"
-                        android:background="@color/divider" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnChangeDistributor"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:paddingHorizontal="14dp"
+                        android:text="@string/market_change"
+                        android:textAllCaps="false"
+                        android:textColor="@color/brand_blue"
+                        android:textSize="12sp"
+                        app:cornerRadius="8dp"
+                        app:strokeColor="@color/brand_blue" />
+                </LinearLayout>
 
-                    <!-- Constant stats (delivery area / wallet / credit) -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="1dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_location_pin"
+                        app:tint="@color/brand_blue" />
+
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <com.anokix.traderapp.ui.views.RobotoTextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1.4"
-                            android:orientation="vertical">
+                            android:text="@string/delivery_area"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
 
-                            <com.anokix.traderapp.ui.views.RobotoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/delivery_area"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="10sp" />
-
-                            <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                                android:id="@+id/distArea"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:maxLines="2"
-                                android:text="Johannesburg, Cape Town"
-                                android:textColor="@color/text_primary"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <com.anokix.traderapp.ui.views.RobotoBoldTextView
+                            android:id="@+id/distArea"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <com.anokix.traderapp.ui.views.RobotoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/wallet_balance"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="10sp" />
-
-                            <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="R2,800.00"
-                                android:textColor="@color/text_primary"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <com.anokix.traderapp.ui.views.RobotoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/available_credit"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="10sp" />
-
-                            <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="R10,000.00"
-                                android:textColor="@color/text_primary"
-                                android:textSize="11sp" />
-                        </LinearLayout>
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="—"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-            <!-- Banner slider -->
+            <!-- Quick services -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="10dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/svcAirtime"
+                    layout="@layout/item_market_service"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <include
+                    android:id="@+id/svcElectricity"
+                    layout="@layout/item_market_service"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1" />
+
+                <include
+                    android:id="@+id/svcPos"
+                    layout="@layout/item_market_service"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <!-- Campaign banner slider -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/containerBannerPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="14dp"
+                android:visibility="gone"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
                 app:contentPadding="0dp">
@@ -254,37 +270,18 @@
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/bannerPager"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_marginTop="2dp" />
+                        android:layout_height="190dp" />
 
                     <LinearLayout
                         android:id="@+id/bannerDots"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|bottom"
-                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="end|bottom"
+                        android:layout_marginEnd="14dp"
+                        android:layout_marginBottom="12dp"
                         android:orientation="horizontal" />
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- Business Insights -->
-            <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                android:id="@+id/insightsTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:paddingHorizontal="16dp"
-                android:text="@string/business_insights"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:id="@+id/insightsContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="12dp" />
 
             <!-- Search + scan -->
             <LinearLayout
@@ -293,21 +290,22 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingHorizontal="12dp"
-                android:paddingTop="16dp">
+                android:paddingTop="14dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_height="46dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_search_bar"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="12dp">
+                    android:paddingStart="12dp"
+                    android:paddingEnd="4dp">
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:contentDescription="@string/search_hint"
+                        android:importantForAccessibility="no"
                         android:src="@drawable/ic_search"
                         app:tint="@color/text_secondary" />
 
@@ -324,180 +322,129 @@
                         android:maxLines="1"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_secondary"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
+
+                    <ImageButton
+                        android:id="@+id/searchClear"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/market_search_clear"
+                        android:padding="9dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close"
+                        android:visibility="gone"
+                        app:tint="@color/text_tertiary" />
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/scanButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
                     android:layout_marginStart="8dp"
+                    android:contentDescription="@string/scan"
+                    android:insetLeft="0dp"
                     android:insetTop="0dp"
+                    android:insetRight="0dp"
                     android:insetBottom="0dp"
-                    android:text="@string/scan"
-                    android:textSize="11sp"
-                    app:cornerRadius="11dp"
+                    android:padding="0dp"
+                    app:cornerRadius="10dp"
                     app:icon="@drawable/ic_scan"
-                    app:iconSize="16dp"
-                    app:iconTint="#FFFFFF" />
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/brand_indigo"
+                    app:strokeColor="@color/brand_indigo" />
             </LinearLayout>
 
-            <!-- Menu buttons -->
-            <HorizontalScrollView
+            <!-- Inline search results ("N results for …" + Clear), replaces Categories -->
+            <LinearLayout
+                android:id="@+id/searchSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:scrollbars="none">
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/hdrSearch"
+                    layout="@layout/include_market_section_header" />
+
+                <ProgressBar
+                    android:id="@+id/searchProgress"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:indeterminateTint="@color/brand_blue"
+                    android:visibility="gone" />
+
+                <com.anokix.traderapp.ui.views.RobotoTextView
+                    android:id="@+id/searchEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
-                    android:id="@+id/menuContainer"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/searchGrid"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
                     android:paddingHorizontal="12dp" />
-            </HorizontalScrollView>
+            </LinearLayout>
 
             <!-- Categories -->
             <LinearLayout
+                android:id="@+id/categoriesSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
+                android:orientation="vertical">
 
-                <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/categories"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16sp" />
+                <include
+                    android:id="@+id/hdrCategories"
+                    layout="@layout/include_market_section_header" />
 
-                <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                    android:id="@+id/btnViewAllCategories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="4dp"
-                    android:text="@string/view_all"
-                    android:textColor="@color/purple_primary"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:id="@+id/categoriesContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="12dp" />
-            </HorizontalScrollView>
-
-            <!-- Business Opportunities (static) -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp">
-
-                <LinearLayout
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_promo_banner_purple"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_marginTop="10dp"
+                    android:scrollbars="none">
 
-                    <com.anokix.traderapp.ui.views.RobotoBoldTextView
+                    <LinearLayout
+                        android:id="@+id/categoriesContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/business_opportunities"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp" />
-
-                    <com.anokix.traderapp.ui.views.RobotoTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/business_opportunities_sub"
-                        android:textColor="#EDE4FF"
-                        android:textSize="12sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnOpportunity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="12dp"
-                        android:backgroundTint="#FFFFFF"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:paddingHorizontal="18dp"
-                        android:text="@string/view_opportunity"
-                        android:textColor="@color/purple_primary"
-                        android:textSize="10sp"
-                        app:cornerRadius="10dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp" />
+                </HorizontalScrollView>
+            </LinearLayout>
 
             <!-- Recommended for You -->
             <LinearLayout
                 android:id="@+id/recommendedSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/recommended_for_you"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp" />
-
-                        <com.anokix.traderapp.ui.views.RobotoTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/based_on_orders"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="11sp" />
-                    </LinearLayout>
-
-                    <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                        android:id="@+id/btnViewAllRecommended"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:padding="4dp"
-                        android:text="@string/view_all"
-                        android:textColor="@color/purple_primary"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <include
+                    android:id="@+id/hdrRecommended"
+                    layout="@layout/include_market_section_header" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="12dp"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="12dp"
                     android:scrollbars="none">
 
                     <LinearLayout
@@ -508,40 +455,76 @@
                 </HorizontalScrollView>
             </LinearLayout>
 
-            <!-- Current Promotions -->
+            <!-- Best Deals -->
+            <LinearLayout
+                android:id="@+id/bestDealsSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/hdrBestDeals"
+                    layout="@layout/include_market_section_header" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="12dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/bestDealsRow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- Exclusive Deals -->
+            <LinearLayout
+                android:id="@+id/exclusiveDealsSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/hdrExclusiveDeals"
+                    layout="@layout/include_market_section_header" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="12dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/exclusiveDealsRow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- Promotions -->
             <LinearLayout
                 android:id="@+id/promotionsSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp">
-
-                    <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/current_promotions"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp" />
-
-                    <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                        android:id="@+id/btnViewAllPromotions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:padding="4dp"
-                        android:text="@string/view_all"
-                        android:textColor="@color/purple_primary"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <include
+                    android:id="@+id/hdrPromotions"
+                    layout="@layout/include_market_section_header" />
 
                 <LinearLayout
                     android:id="@+id/promotionsContainer"
@@ -550,64 +533,168 @@
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     android:paddingHorizontal="12dp" />
-
             </LinearLayout>
 
-            <!-- Best Sellers -->
+            <!-- News from {distributor} -->
             <LinearLayout
-                android:id="@+id/bestSellersSection"
+                android:id="@+id/newsSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
+                <include
+                    android:id="@+id/hdrNews"
+                    layout="@layout/include_market_section_header" />
+
                 <LinearLayout
+                    android:id="@+id/newsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp">
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_card_white"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="6dp" />
+            </LinearLayout>
 
-                    <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/best_sellers"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp" />
+            <!-- Stories -->
+            <LinearLayout
+                android:id="@+id/storiesSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                    <com.anokix.traderapp.ui.views.RobotoBoldTextView
-                        android:id="@+id/btnViewAllBestSellers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:padding="4dp"
-                        android:text="@string/view_all"
-                        android:textColor="@color/purple_primary"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <include
+                    android:id="@+id/hdrStories"
+                    layout="@layout/include_market_section_header" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="12dp"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="12dp"
                     android:scrollbars="none">
 
                     <LinearLayout
-                        android:id="@+id/bestSellersRow"
+                        android:id="@+id/storiesRow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" />
                 </HorizontalScrollView>
             </LinearLayout>
 
+            <!-- Top Suppliers -->
+            <LinearLayout
+                android:id="@+id/suppliersSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/hdrSuppliers"
+                    layout="@layout/include_market_section_header" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="12dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/suppliersRow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- Best Sellers (distributors ranked by catalogue size) -->
+            <LinearLayout
+                android:id="@+id/sellersSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/hdrSellers"
+                    layout="@layout/include_market_section_header" />
+
+                <LinearLayout
+                    android:id="@+id/sellersContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_card_white"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="6dp" />
+            </LinearLayout>
+
+            <!-- My Distributors -->
+            <LinearLayout
+                android:id="@+id/myDistributorsSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/hdrMyDistributors"
+                    layout="@layout/include_market_section_header" />
+
+                <LinearLayout
+                    android:id="@+id/myDistributorsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="12dp" />
+            </LinearLayout>
+
+            <!-- Recent Orders -->
+            <LinearLayout
+                android:id="@+id/recentOrdersSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/hdrRecentOrders"
+                    layout="@layout/include_market_section_header" />
+
+                <LinearLayout
+                    android:id="@+id/recentOrdersContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_card_white"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="4dp" />
+            </LinearLayout>
+
             <!-- Bottom feature strip -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="12dp">
 
@@ -651,4 +738,5 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

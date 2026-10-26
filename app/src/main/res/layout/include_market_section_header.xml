@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Marketplace section header: title (+ optional subtitle) and an optional "View All".
+     Filled in from MarketplaceActivity.header(). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="12dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.anokix.traderapp.ui.views.RobotoBoldTextView
+            android:id="@+id/sectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_primary"
+            android:textSize="17sp"
+            tools:text="Best Deals" />
+
+        <com.anokix.traderapp.ui.views.RobotoTextView
+            android:id="@+id/sectionSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            android:visibility="gone"
+            tools:text="Based on your previous orders" />
+    </LinearLayout>
+
+    <com.anokix.traderapp.ui.views.RobotoBoldTextView
+        android:id="@+id/sectionAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="6dp"
+        android:text="@string/view_all"
+        android:textColor="@color/brand_blue"
+        android:textSize="12sp"
+        android:visibility="gone" />
+</LinearLayout>

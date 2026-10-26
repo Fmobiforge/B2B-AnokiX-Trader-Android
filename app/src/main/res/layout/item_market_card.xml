@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="R0.00"
-                android:textColor="@color/purple_primary"
+                android:textColor="@color/text_primary"
                 android:textSize="14sp" />
 
             <ImageView

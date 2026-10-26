@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Campaign-type badge on a banner slide (portal "ANNOUNCEMENT" / "CAN'T MISS DEAL"). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/success_strong" />
+    <corners android:radius="999dp" />
+</shape>

@@ -45,6 +45,7 @@ public class PromotionsActivity extends AppCompatActivity {
     private RecyclerView list;
     private PromoAdapter adapter;
     private final List<MarketplaceData.Promotion> promotions = new ArrayList<>();
+    private String currency = "R";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,6 +87,15 @@ public class PromotionsActivity extends AppCompatActivity {
         refreshCart();
     }
 
+    /** "Shop Now": record the campaign open and show its products (portal drawer). */
+    private void openCampaign(MarketplaceData.Promotion p) {
+        api.recordCampaignClick(p.id);
+        CampaignSheet.show(this, p, currency, (product, campaignId) -> {
+            api.recordCampaignProductView(campaignId, product.product_id);
+            startActivity(CampaignSheet.productIntent(this, product, currency, p.distributorName()));
+        });
+    }
+
     private void loadPage(int p, boolean reset) {
         if (loading) return;
         loading = true;
@@ -98,6 +108,7 @@ public class PromotionsActivity extends AppCompatActivity {
                 progress.setVisibility(View.GONE);
                 loadMore.setVisibility(View.GONE);
                 if (result == null) return;
+                currency = result.currencySymbol();
                 if (result.title != null) titleView.setText(result.title);
                 if (result.pagination != null) {
                     page = result.pagination.page;
@@ -160,9 +171,8 @@ public class PromotionsActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull VH h, int position) {
             MarketplaceData.Promotion p = promotions.get(position);
-            PromotionCardBinder.bind(PromotionsActivity.this, h.itemView, p,
-                    () -> Toast.makeText(PromotionsActivity.this,
-                            getString(R.string.coming_soon), Toast.LENGTH_SHORT).show());
+            PromotionCardBinder.bind(PromotionsActivity.this, h.itemView, p, () -> openCampaign(p));
+            h.itemView.setOnClickListener(v -> openCampaign(p));
         }
 
         @Override

@@ -557,6 +557,51 @@ public final class ApiClient {
     }
 
     /**
+     * Marketplace product search (api/trader/marketplace/search) — matches name, brand,
+     * category, SKU and barcode, so it also resolves a scanned code. The response has the
+     * same {meta, pagination, products} shape as a collection, so it reuses
+     * {@link CollectionData}. {@code distributorId} is optional.
+     */
+    public void searchMarketplace(String query, String distributorId, int page, int perPage,
+                                  ApiCallback<CollectionData> cb) {
+        Map<String, String> q = new HashMap<>();
+        q.put("q", query == null ? "" : query.trim());
+        q.put("page", String.valueOf(page));
+        q.put("per_page", String.valueOf(perPage));
+        if (distributorId != null && !distributorId.isEmpty()) {
+            q.put("distributor_id", distributorId);
+        }
+        getAuthed("api/trader/marketplace/search", q, CollectionData.class, cb);
+    }
+
+    /**
+     * Campaign analytics: the trader opened a banner / promotion / news post / story
+     * (api/trader/marketplace/campaign-click). Fire-and-forget — tracking must never
+     * get in the way of browsing.
+     */
+    public void recordCampaignClick(long campaignId) {
+        if (campaignId <= 0) return;
+        Map<String, String> form = new HashMap<>();
+        form.put("campaign_id", String.valueOf(campaignId));
+        io.execute(() -> Http.postForm(BASE_URL, "api/trader/marketplace/campaign-click",
+                form, session.getToken()));
+    }
+
+    /**
+     * Campaign analytics: a product was viewed as a result of a campaign
+     * (api/trader/marketplace/campaign-event, event_type=product_view). Fire-and-forget.
+     */
+    public void recordCampaignProductView(long campaignId, String productId) {
+        if (campaignId <= 0 || productId == null || productId.isEmpty()) return;
+        Map<String, String> form = new HashMap<>();
+        form.put("campaign_id", String.valueOf(campaignId));
+        form.put("event_type", "product_view");
+        form.put("product_id", productId);
+        io.execute(() -> Http.postForm(BASE_URL, "api/trader/marketplace/campaign-event",
+                form, session.getToken()));
+    }
+
+    /**
      * Titled, paginated "Current Promotions" list (api/trader/marketplace/promotions),
      * opened from the Marketplace "Current Promotions" View All.
      */

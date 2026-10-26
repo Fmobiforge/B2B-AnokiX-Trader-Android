@@ -85,6 +85,15 @@ public class PosScanDialogFragment extends DialogFragment {
         void onScanCartChanged();
     }
 
+    /**
+     * Alternative host for screens that resolve codes themselves (the Marketplace looks
+     * the code up through its search API). When the host implements this, the sheet hands
+     * over the first accepted code and closes instead of matching against a POS list.
+     */
+    public interface CodeHost {
+        void onCodeScanned(String code);
+    }
+
     private static final String ARG_MODE = "mode";
     /** A rung-up code counts again only once it has been out of frame for this long. */
     private static final long SEPARATION_MS = 900L;
@@ -211,6 +220,11 @@ public class PosScanDialogFragment extends DialogFragment {
                 .build());
 
         refreshCartSummary();
+        if (codeHost() != null) {
+            // Lookup mode: there is no POS sale to summarise.
+            cartSummary.setVisibility(View.INVISIBLE);
+            ((TextView) view.findViewById(R.id.scanAdd)).setText(R.string.market_scan_find);
+        }
         ensureCamera();
     }
 
@@ -482,6 +496,12 @@ public class PosScanDialogFragment extends DialogFragment {
 
     /** Match the code against the POS list, then add / explain. */
     private void resolve(String code) {
+        CodeHost codeHost = codeHost();
+        if (codeHost != null) {
+            codeHost.onCodeScanned(code);
+            dismissAllowingStateLoss();
+            return;
+        }
         Host host = host();
         List<PosProduct> products = host == null ? null : host.scanProducts();
         if (products == null || products.isEmpty()) {
@@ -553,6 +573,15 @@ public class PosScanDialogFragment extends DialogFragment {
                 ? getString(R.string.scan_cart_empty)
                 : getResources().getQuantityString(R.plurals.scan_cart_summary, count, count,
                         money(cart.subtotal())));
+    }
+
+    @Nullable
+    private CodeHost codeHost() {
+        if (getParentFragment() instanceof CodeHost) {
+            return (CodeHost) getParentFragment();
+        }
+        Context context = getContext();
+        return context instanceof CodeHost ? (CodeHost) context : null;
     }
 
     @Nullable

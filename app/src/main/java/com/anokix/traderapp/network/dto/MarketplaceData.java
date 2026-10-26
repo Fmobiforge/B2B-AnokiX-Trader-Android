@@ -24,6 +24,22 @@ public class MarketplaceData {
     public BusinessInsights business_insights;
     public List<Distributor> my_distributors;
 
+    // Trader Portal marketplace sections (Best/Exclusive Deals, News, Stories, Top
+    // Suppliers, Best Sellers, Recent Orders). Each may be missing or empty.
+    /** Products on a "best deal" campaign; each carries its {@code campaign_id}. */
+    public List<Product> best_deal_products;
+    /** Products only this distributor offers; each carries its {@code campaign_id}. */
+    public List<Product> exclusive_deal_products;
+    /** campaign_type=post — the "News from {distributor}" feed. */
+    public List<Promotion> posts;
+    /** campaign_type=story — the round "Stories" thumbnails. */
+    public List<Promotion> stories;
+    /** Brands with the most products in the catalogue. */
+    public List<Supplier> top_suppliers;
+    /** Distributors ranked by catalogue size ("Best Sellers" on the portal). */
+    public List<Seller> top_sellers;
+    public List<RecentOrder> recent_orders;
+
     /** Currency symbol for the page (defaults to the SA Rand "R"). */
     public String currencySymbol() {
         if (meta != null && meta.currency != null && meta.currency.symbol != null
@@ -54,6 +70,12 @@ public class MarketplaceData {
         public String status;
         public String logo_url;
         public String preferred_delivery_days;
+        public String contact_name;
+        public String contact_email;
+        public String contact_phone;
+        public int products_available;
+        /** May be null or numeric; kept as String so either decodes. */
+        public String minimum_order;
 
         public String displayName() {
             // Prefer the registered legal name, then backend display, then trading.
@@ -73,6 +95,10 @@ public class MarketplaceData {
         public String description;
         public Media banner_file;
         public Media video_file;
+        public String start_date;
+        public String end_date;
+        public CampaignProducts selected_products;
+        public Distributor distributor;
 
         public String mediaUrl() {
             if (video_file != null && notEmpty(video_file.file_url)) {
@@ -87,6 +113,23 @@ public class MarketplaceData {
         public boolean isVideo() {
             return video_file != null && notEmpty(video_file.file_url);
         }
+
+        /** The campaign behind this slide, in the shape the campaign sheet renders. */
+        public Promotion asCampaign() {
+            Promotion p = new Promotion();
+            p.id = campaign_id > 0 ? campaign_id : id;
+            p.distributor_id = distributor_id;
+            p.campaign_type = campaign_type;
+            p.name = name;
+            p.description = description;
+            p.start_date = start_date;
+            p.end_date = end_date;
+            p.banner_file = banner_file;
+            p.video_file = video_file;
+            p.selected_products = selected_products;
+            p.distributor = distributor;
+            return p;
+        }
     }
 
     public static class Promotion {
@@ -99,6 +142,33 @@ public class MarketplaceData {
         public String end_date;
         public Media banner_file;
         public Media video_file;
+        public CampaignProducts selected_products;
+        public Distributor distributor;
+
+        /** Announcements and news posts promote no products — the CTA reads "View Details". */
+        public boolean isAnnouncement() {
+            String t = campaign_type == null ? "" : campaign_type.toLowerCase(Locale.US);
+            return t.equals("post") || t.equals("story") || t.contains("announcement");
+        }
+
+        /** Badge for the slide/sheet, e.g. "cant_miss_deal" → "CAN'T MISS DEAL". */
+        public String typeLabel() {
+            String t = campaign_type == null ? "" : campaign_type.toLowerCase(Locale.US);
+            switch (t) {
+                case "post": return "ANNOUNCEMENT";
+                case "story": return "STORY";
+                case "cant_miss_deal": return "CAN'T MISS DEAL";
+                case "exclusive_deal": return "EXCLUSIVE DEAL";
+                case "best_deal": return "BEST DEAL";
+                case "promotion": return "PROMOTION";
+                case "featured_store": return "FEATURED STORE";
+                default: return t.replace('_', ' ').toUpperCase(Locale.US);
+            }
+        }
+
+        public String distributorName() {
+            return distributor != null ? distributor.displayName() : "";
+        }
 
         public String mediaUrl() {
             if (banner_file != null && notEmpty(banner_file.file_url)) {
@@ -178,6 +248,8 @@ public class MarketplaceData {
         public String primary_product_image_url;
         public String image_url;
         public java.util.List<AdditionalImage> additional_images;
+        /** Set on best/exclusive deal products — the campaign a view is attributed to. */
+        public long campaign_id;
 
         public double priceValue() {
             double v = parse(selling_price);
@@ -232,6 +304,83 @@ public class MarketplaceData {
                 return 0;
             }
         }
+    }
+
+    // ---- Campaign products (selected_products on banners / promotions) ----
+
+    /** What a campaign puts on offer. All three lists may be empty (announcements). */
+    public static class CampaignProducts {
+        public List<CampaignProduct> single_products;
+        public List<ComboDeal> combo_deals;
+        public List<BuyGetDeal> buy1_get1_deals;
+    }
+
+    /** A product as embedded in a campaign — slimmer than {@link Product}. */
+    public static class CampaignProduct {
+        public String product_id;
+        public String name;
+        public String sku;
+        public String barcode;
+        public int available_stock;
+        public double original_price;
+        public double campaign_selling_price;
+        public String image_url;
+        public String primary_product_image_url;
+        public NamedRef brand;
+        public NamedRef category;
+
+        public String imageUrl() {
+            if (notEmpty(image_url)) return image_url;
+            return primary_product_image_url;
+        }
+
+        public double price() {
+            return campaign_selling_price > 0 ? campaign_selling_price : original_price;
+        }
+    }
+
+    public static class ComboDeal {
+        public double campaign_selling_price;
+        public List<CampaignProduct> products;
+    }
+
+    public static class BuyGetDeal {
+        public double campaign_selling_price;
+        public List<CampaignProduct> buy_products;
+        public List<CampaignProduct> free_products;
+    }
+
+    public static class NamedRef {
+        public long id;
+        public String name;
+        public String title;
+    }
+
+    // ---- Side-rail sections ---------------------------------------------
+
+    public static class Supplier {
+        public long id;
+        public String name;
+        public String logo_url;
+        public int product_count;
+    }
+
+    public static class Seller {
+        public long id;
+        public String name;
+        public String logo_url;
+        public int products_available;
+        /** True for the distributor the trader already buys from ("YOURS"). */
+        public boolean is_mine;
+    }
+
+    public static class RecentOrder {
+        public long id;
+        public String order_number;
+        public String status;
+        public String status_key;
+        public double total_amount;
+        public String created_at;
     }
 
     private static boolean notEmpty(String s) {
